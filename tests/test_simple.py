@@ -1,5 +1,6 @@
 import pytest
 from .context import preprocess
+from .context import hough
 
 def test_tautology():
     assert True == True and False == False
@@ -24,9 +25,4 @@ def test_gblur():
 
     assert allclose(img, gblur)
 
-def test_sobelxy():
-    pass
-
-def test_houghtransform():
-    pass
 
