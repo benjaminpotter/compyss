@@ -25,4 +25,8 @@ def test_gblur():
 
     assert allclose(img, gblur)
 
+def test_file_source(): # TODO
+    pass
+    
+
 
