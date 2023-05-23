@@ -1,5 +1,5 @@
 from compyss.sources.root import ImageSource
-import compyss.hough 
+import compyss.decoders.hough
 
 class Compass():
 
@@ -27,8 +27,8 @@ class Compass():
         # use the hough method
         # plan to include support for more methods in the future
 
-        bimg = compyss.hough.extract_binary(img)
-        angle = compyss.hough.hough_transform(bimg)
+        bimg = compyss.decoders.hough.extract_binary(img)
+        angle = compyss.decoders.hough.hough_transform(bimg)
 
         return angle
 
