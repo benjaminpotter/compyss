@@ -20,10 +20,6 @@ class Compass():
 
         img = self.source.get()
 
-        import cv2 
-        cv2.imshow("image", img.aolp)
-        cv2.waitKey(0)
-
         # use the hough method
         # plan to include support for more methods in the future
 
