@@ -5,7 +5,33 @@ import numpy as np
 class FileSource(ImageSource):
     """
     Load image from a file source.
+
+    Image is expected to be AoLP with hue representing angle with solar principle plane.
     """
+    
+    @staticmethod
+    def _extract_aolp(hsv_image):
+        aolp = []
+        for row in hsv_image:
+            angle_row = []
+            for pixel in row:
+
+                # normalize
+                norm = pixel[0] / 180.0
+
+                # map to angle range
+                mapd = (norm * 2) - 1
+                mapd = mapd * -90
+
+                # mask for greyscale
+                if pixel[1] < 1:
+                    mapd = 0
+
+                angle_row.append( mapd )
+            aolp.append(angle_row)
+
+        return aolp
+
 
     def __init__(self, filepath):
         super().__init__()
@@ -26,10 +52,11 @@ class FileSource(ImageSource):
         if not self.is_loaded:
             raise Exception("Cannot load from file " + self.filepath)
         
+        hsv_image = cv.cvtColor(self.raw_image, cv.COLOR_BGR2HSV)
+        aolp_image = FileSource._extract_aolp(hsv_image) 
+
         self.image = Image()
-        
-        # TODO update using image encoding
-        self.image.aolp = self.raw_image
+        self.image.aolp = aolp_image
 
     def get(self):
         if not self.is_loaded:
