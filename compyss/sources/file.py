@@ -17,7 +17,7 @@ class FileSource(ImageSource):
             for pixel in row:
 
                 # normalize
-                norm = pixel[0] / 180.0
+                norm = pixel[0] / 120.0
 
                 # map to angle range
                 mapd = (norm * 2) - 1
