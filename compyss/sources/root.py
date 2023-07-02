@@ -5,6 +5,9 @@ class Image():
     """
 
     def __init__(self):
+    
+        # list of pure pixel data
+        self.pixels = None
 
         # numpy array holding angles for each pixel
         self.aolp = None

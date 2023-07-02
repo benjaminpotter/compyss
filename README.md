@@ -26,7 +26,6 @@ here.
 -->
 
 ## Features
-- Read heading from AoLP image
 - Read angle to solar meridian from AoLP image
 
 ### Camera SDK support
@@ -50,6 +49,13 @@ cmps.read()
 The package is not currently available on pypi. Download the source and install
 as a local package using pip.
 
+### Dependencies
+General dependencies are listed in the requirements.txt file and can be installed using ```python -m pip install -r requirements.txt``` or something similar.
+
+Camera sources require specific dependencies that do not apply globally. Using the available camera sources requires installing their interface. 
+For example, LUCID Vision cameras require the ArenaSDK to be installed. See (wiki)[https://github.com/benjaminpotter/compyss/wiki/Sources#camera-specific-dependencies]
+for more info.
+
 ## FAQ
 For questions, open an issue or send an email to ben [dot] potter [at] queensu
 [dot] ca.
@@ -62,3 +68,6 @@ you cite our paper. See [author](#author).
 Contributions are welcome, mostly with respect to camera SDK support. If you need support for another camera SDK,
 reach out to me ben [dot] potter [at] queensu [dot] ca.
 
+### Potential Updates
+- Create an ImageDecoder class that standardizes decoder format. Package user should create a decoder object and pass it to the compass object similar to the ImageSource class.
+- Change examples/solar_meridian.py to examples/load_from_file.py to better highlight the purpose of that example.
