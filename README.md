@@ -53,7 +53,7 @@ as a local package using pip.
 General dependencies are listed in the requirements.txt file and can be installed using ```python -m pip install -r requirements.txt``` or something similar.
 
 Camera sources require specific dependencies that do not apply globally. Using the available camera sources requires installing their interface. 
-For example, LUCID Vision cameras require the ArenaSDK to be installed. See (wiki)[https://github.com/benjaminpotter/compyss/wiki/Sources#camera-specific-dependencies]
+For example, LUCID Vision cameras require the ArenaSDK to be installed. See [wiki](https://github.com/benjaminpotter/compyss/wiki/Sources#camera-specific-dependencies)
 for more info.
 
 ## FAQ
