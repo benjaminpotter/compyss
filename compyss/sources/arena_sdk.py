@@ -7,7 +7,15 @@ import numpy as np
 
 class ArenaSDK(ImageSource):
 
-    def __init__(self, config): # TODO implement configuration options
+    """
+        Source for LUCID Vision Cameras.
+        
+        Configuration options map to camera configuration nodes.
+        https://support.thinklucid.com/phoenix-phx050-pq-polarized/#2931
+    
+    """
+
+    def __init__(self, config):
         
         self.device = None
         self.config = config
@@ -36,26 +44,27 @@ class ArenaSDK(ImageSource):
         return device_list[0]
         
     def _configure_active_device(self, device, config):
-        nodes = device.nodemap.get_node(['Width', 'Height', 'PixelFormat'])
-
-        # Nodes
-        print('Setting Width to its maximum value')
-        nodes['Width'].value = nodes['Width'].max
-
-        print('Setting Height to its maximum value')
-        height = nodes['Height']
-        height.value = height.max
-
-        # Set pixel format to PolarizedDolpAolp_Mono8
-        pixel_format_name = 'PolarizedDolpAolp_Mono8'
-        print(f'Setting Pixel Format to {pixel_format_name}')
-        nodes['PixelFormat'].value = pixel_format_name
+        # grab required nodes
+        nodes = device.nodemap.get_node(list(config))
+        
+        # set nodes
+        for opt in config:
+            nodes[opt].value = config[opt]
+            print(f"Set {opt} to {config[opt]}")
         
     def _start_stream(self, device, buffer_count):
         device.start_stream(buffer_count)
         
     def _stop_stream(self, device):
         device.stop_stream()
+        
+    def _extract_aolp_dolp(self, image: Image):
+        """
+        Currently takes ~15s to run on my machine. This needs work.
+        """
+        for idx, row in np.ndenumerate(image.pixels):
+            image.dolp[idx] = np.right_shift(row, 8)
+            image.aolp[idx] = np.bitwise_and(row, 0x00FF)
 
     def get(self):
         
@@ -63,15 +72,26 @@ class ArenaSDK(ImageSource):
         buffer_copy = BufferFactory.copy(buffer)
         self.device.requeue_buffer(buffer)
         
-        print(
+        print("Recieved image with: "
             f'Width = {buffer_copy.width} pxl, '
             f'Height = {buffer_copy.height} pxl, '
             f'Pixel Format = {buffer_copy.pixel_format.name}')
         
         image = Image()
+        
         image.pixels = np.ctypeslib.as_array(buffer_copy.pdata, (buffer_copy.height, buffer_copy.width))
         
         # TODO parse buffer data into DOLP and AOLP for each pixel
+        # PolarizedDolpAolp_Mono8 -> 16 bits, 2 bytes
+        #   TOP 8 bits are DOLP (0-255)
+        #   BOTTOM 8 bits are AOLP (0-201)
+        # Reference: https://support.thinklucid.com/knowledgebase/pixel-formats/#polarizeddolpaolp_mono8
+        # Reference: C Code Samples: Polarization, Color DoLP AoLP
+            
+        image.aolp = np.empty((buffer_copy.height, buffer_copy.width), dtype=int)
+        image.dolp = np.empty((buffer_copy.height, buffer_copy.width), dtype=int)
+
+        #self._extract_aolp_dolp(image)
    
         return image
         
