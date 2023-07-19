@@ -1,5 +1,5 @@
 
-class Image():
+class Image(): # TODO, move to core.py?
     """
     Standard data for an image that can be decoded by compyss.
     """
@@ -14,6 +14,9 @@ class Image():
 
         # numpy array holding fractions of polarized light for each pixel
         self.dolp = None
+        
+        # stokes vectors
+        self.stokes = None
 
 
 class ImageSource():
