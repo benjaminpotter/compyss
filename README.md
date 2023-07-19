@@ -2,7 +2,7 @@
 A tool built for analysing skylight polarization patterns. It aims to provide
 heading information from skylight angle of polarization images.
 
-![Polarized sky image.](https://raw.githubusercontent.com/benjaminpotter/compyss/master/res/SkyPattern.png)
+<img src="https://raw.githubusercontent.com/benjaminpotter/compyss/master/res/SkyPattern.png" width="256" height="256">
 
 ### Design philosophy
 compyss is designed to be as flexible as possible. It's flexibility allows it to
