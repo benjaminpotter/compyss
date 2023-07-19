@@ -2,6 +2,8 @@
 A tool built for analysing skylight polarization patterns. It aims to provide
 heading information from skylight angle of polarization images.
 
+![Polarized sky image.](https://raw.githubusercontent.com/benjaminpotter/compyss/master/res/SkyPattern.png)
+
 ### Design philosophy
 compyss is designed to be as flexible as possible. It's flexibility allows it to
 support multiple cameras and decode methods. Once you write a decoder, it should
