@@ -60,6 +60,8 @@ Camera sources require specific dependencies that do not apply globally. Using t
 For example, LUCID Vision cameras require the ArenaSDK to be installed. See [wiki](https://github.com/benjaminpotter/compyss/wiki/Sources#camera-specific-dependencies)
 for more info.
 
+Currently, the project uses [polanalyser](https://github.com/elerac/polanalyser/) to do some image processing.
+
 ## FAQ
 For questions, open an issue or send an email to ben [dot] potter [at] queensu
 [dot] ca.
@@ -75,3 +77,6 @@ reach out to me ben [dot] potter [at] queensu [dot] ca.
 ### Potential Updates
 - Create an ImageDecoder class that standardizes decoder format. Package user should create a decoder object and pass it to the compass object similar to the ImageSource class.
 - Change examples/solar_meridian.py to examples/load_from_file.py to better highlight the purpose of that example.
+- Fix exposure settings in arena_sdk to improve execution time of that pipeline.
+- Support saving features to LUCID cameras via arena_sdk.py 
+- Add custom image processing functionality to Image class e.g., demosaicing, Stokes extraction.
