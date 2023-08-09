@@ -16,7 +16,7 @@ class ArenaSDK(ImageSource):
         TODO: Camera supports saving common streamable files to on-board storage.
         
         Loads a light intensity image from the camera using the Mono8 pixel format. This image contains light intensity for 0, 90, 45, 135 angles.
-        vector is then constructed for each pixel. From the Stokes vector, AoLP and DoLP are computed.
+        The Stokes vector is then constructed for each pixel. From the Stokes vector, AoLP and DoLP are computed.
         More information: https://support.thinklucid.com/knowledgebase/pixel-formats/#mono8
         TODO: Eliminate dependency on Polanalyser.
         
