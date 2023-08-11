@@ -1,4 +1,5 @@
-from compyss.sources.root import ImageSource, Image
+from compyss.sources.image_source import ImageSource
+from compyss.image import Image
 import cv2 as cv
 import numpy as np
 

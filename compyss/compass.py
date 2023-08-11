@@ -1,4 +1,4 @@
-from compyss.sources.root import ImageSource
+from compyss.sources.image_source import ImageSource
 import compyss.decoders.hough
 
 class Compass():
@@ -27,5 +27,3 @@ class Compass():
         angle = compyss.decoders.hough.hough_transform(bimg)
 
         return angle
-
-

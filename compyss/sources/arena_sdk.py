@@ -1,4 +1,5 @@
-from compyss.sources.root import ImageSource, Image
+from compyss.sources.image_source import ImageSource
+from compyss.image import Image
 
 from arena_api.system import system
 from arena_api.buffer import BufferFactory

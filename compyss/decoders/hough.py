@@ -2,7 +2,7 @@ import cv2 as cv
 import numpy as np
 import math
 
-from compyss.sources.root import Image
+from compyss.image import Image
 
 """
 From my research, this method was first documented by Lu et al. in their paper DOI:10.1364/OE.23.007248.

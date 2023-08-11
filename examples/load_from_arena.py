@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 
-import compyss.core
+from compyss.compass import Compass
 from compyss.sources.arena_sdk import ArenaSDK
 
 """
@@ -12,7 +12,7 @@ This example uses the ArenaSDK as an ImageSource and builds a figure using matpl
 
 def main():
     
-    cmps = compyss.core.Compass(source=ArenaSDK(streamable_file="res/features.txt"))
+    cmps = Compass(source=ArenaSDK(streamable_file="res/features.txt"))
     image = cmps.source.get()
     
     pos = plt.imshow(image.aolp, cmap="jet")

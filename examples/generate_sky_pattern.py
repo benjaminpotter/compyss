@@ -1,7 +1,7 @@
 import numpy as np
 import cv2
 
-from compyss.sources.root import Image
+from compyss.image import Image
 from math import cos, sin
 
 """
