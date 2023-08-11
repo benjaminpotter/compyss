@@ -85,25 +85,10 @@ class ArenaSDK(ImageSource):
             f'Pixel Format = {buffer_copy.pixel_format.name}, '
             f'Bpp = {buffer_copy.bits_per_pixel}')
         
-        image = Image()
-        image.pixels = np.ctypeslib.as_array(buffer_copy.pdata, (buffer_copy.height, buffer_copy.width))
-        
         # ensure each pixel is atleast 0000 0001 to prevent divide by zero later
-        np.clip(image.pixels, 1, 255, image.pixels) 
-        
-        # demosaic
-        intensity_imgs = pa.demosaicing(image.pixels, pa.COLOR_PolarMono)
-        
-        # generate stokes
-        angles = np.deg2rad([0, 45, 90, 135])
-        image.stokes = pa.calcStokes(intensity_imgs, angles)
-        
-        # generate dolp 
-        image.dolp = pa.cvtStokesToDoLP(image.stokes)  # [0, 1]
-        
-        # convert to aolp
-        image.aolp = 0.5 * np.arctan2(image.stokes[..., 2], image.stokes[..., 1]) # [-pi/2, pi/2]
+        buffer_image = np.ctypeslib.as_array(buffer_copy.pdata, (buffer_copy.height, buffer_copy.width))
+        np.clip(buffer_image, 1, 255, buffer_image)
    
-        return image
+        return Image(buffer_image)
         
        

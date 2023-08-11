@@ -1,23 +1,41 @@
-
+import numpy as np
+import polanalyser as pa
 
 class Image():
     """
     Standard data for an image that can be decoded by compyss.
     """
 
-    def __init__(self):
+    def __init__(self, pixels):
     
-        # list of pure pixel data
-        self.pixels = None
-
-        # numpy array holding angles for each pixel
-        self.aolp = None
-
-        # numpy array holding fractions of polarized light for each pixel
-        self.dolp = None
+        # list of pure pixel data for LI images
+        self.pixels = pixels
         
         # stokes vectors
-        self.stokes = None
+        angles = np.deg2rad([0, 45, 90, 135])
+        self._stokes = pa.calcStokes(pa.demosaicing(self.pixels, pa.COLOR_PolarMono), angles)
+        
+        # numpy array holding angles for each pixel
+        self._aolp = 0.5 * np.arctan2(self.stokes[..., 2], self.stokes[..., 1]) # [-pi/2, pi/2]
+
+        # numpy array holding fractions of polarized light for each pixel
+        self._dolp = pa.cvtStokesToDoLP(self.stokes)  # [0, 1]
+        
+    
+    @property
+    def stokes(self):
+        return self._stokes
+    
+    
+    @property
+    def aolp(self):
+        return self._aolp
+        
+        
+    @property
+    def dolp(self):
+        return self._dolp
+ 
         
     def instrument_to_local(self):
         """
