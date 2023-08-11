@@ -27,7 +27,7 @@ class FileSource(ImageSource):
         if not self.is_loaded:
             raise Exception("Cannot load from file " + self.filepath)
             
-        return Image(image)
+        return Image.from_pixels(image)
 
     def get(self):
         return self.image 

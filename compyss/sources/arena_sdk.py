@@ -89,6 +89,6 @@ class ArenaSDK(ImageSource):
         buffer_image = np.ctypeslib.as_array(buffer_copy.pdata, (buffer_copy.height, buffer_copy.width))
         np.clip(buffer_image, 1, 255, buffer_image)
    
-        return Image(buffer_image)
+        return Image.from_pixels(buffer_image)
         
        
