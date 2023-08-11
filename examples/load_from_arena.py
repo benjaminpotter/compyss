@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 
 import compyss.core
-from compyss.sources.arena import ArenaSDK
+from compyss.sources.arena_sdk import ArenaSDK
 
 """
 ArenaSDK example implementation.
