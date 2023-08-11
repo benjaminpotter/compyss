@@ -4,10 +4,10 @@ from compyss.compass import Compass
 from compyss.sources.file import FileSource
 
 """
-ArenaSDK example implementation.
+Load and display LI image from a PNG file.
 
-This example uses the ArenaSDK as an ImageSource and builds a figure using matplotlib.
-
+PNG example is from the PSNS dataset.
+More information: H. Liang and H. Bai, “Polarized Skylight Navigation Simulation (PSNS) Dataset”.
 """
 
 def main():
