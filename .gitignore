@@ -1,8 +1,7 @@
 
 __pycache__
 .DS_Store
-
 ._*
-
 compyss.egg-info
-
+res/lut
+res/arena/features.txt

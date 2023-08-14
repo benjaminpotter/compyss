@@ -1,10 +1,33 @@
 import numpy as np
 import polanalyser as pa
+import os
+
+from math import atan2, cos, sin
 
 class Image():
     """
     Standard data for an image that can be decoded by compyss.
     """
+    
+    lut_cosbeta_path = "res/LUT/cosbeta.csv"
+    lut_sinbeta_path = "res/LUT/sinbeta.csv"
+    
+    @staticmethod
+    def generate_transform_lut():
+        lut_cosbeta = np.empty((2048, 2048))
+        lut_sinbeta = np.empty((2048, 2048))
+        
+        for x in range(2048):
+            for y in range(2048):
+                beta = 2.0 * atan2((y - 1024) * -1, x - 1024)
+                cos_beta = cos(beta)
+                sin_beta = sin(beta)
+                
+                lut_cosbeta[x][y] = cos_beta
+                lut_sinbeta[x][y] = sin_beta
+           
+        np.savetxt(Image.lut_cosbeta_path, lut_cosbeta, delimiter=",")       
+        np.savetxt(Image.lut_sinbeta_path, lut_sinbeta, delimiter=",")
 
     def __init__(self, stokes):
         
@@ -47,8 +70,11 @@ class Image():
         
         transformed_stokes = np.copy(self.stokes)
         
-        lut_cosbeta = np.genfromtxt("res/LUT/cosbeta.csv", delimiter=",")
-        lut_sinbeta = np.genfromtxt("res/LUT/sinbeta.csv", delimiter=",")
+        if not os.path.exists(Image.lut_cosbeta_path) or not os.path.exists(Image.lut_sinbeta_path):
+            Image.generate_transform_lut()
+        
+        lut_cosbeta = np.genfromtxt(Image.lut_cosbeta_path, delimiter=",")
+        lut_sinbeta = np.genfromtxt(Image.lut_sinbeta_path, delimiter=",")
         
         for x in range(2048):
             for y in range(2048):
