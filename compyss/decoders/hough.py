@@ -20,7 +20,7 @@ def extract_binary(aolp_image: Image, threshold=0.1) -> np.array:
     for y in range(len(aolp_image.aolp)):
         for x in range(len(aolp_image.aolp[y])):
             bin_image[y][x] = 0
-            if aolp_image.aolp[y][x] < (-90 + threshold) or aolp_image.aolp[y][x] > (90 - threshold):
+            if aolp_image.aolp[y][x] < (-np.pi/2 + threshold) or aolp_image.aolp[y][x] > (np.pi/2 - threshold):
                 bin_image[y][x] = 255
 
     return bin_image
@@ -67,8 +67,8 @@ def hough_transform(bin_image: np.array) -> float:
 
     s_meridian = lines[0]
 
-    # line_display = cv.cvtColor(np.float32(bin_image), cv.COLOR_GRAY2BGR)
-    # draw_line_overlay(line_display, s_meridian)
+    line_display = cv.cvtColor(np.float32(bin_image), cv.COLOR_GRAY2BGR)
+    draw_line_overlay(line_display, s_meridian)
         
     return s_meridian[0][1]
      
