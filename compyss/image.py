@@ -1,4 +1,5 @@
 import numpy as np
+import matplotlib.pyplot as plt
 import polanalyser as pa
 import os
 
@@ -30,6 +31,9 @@ class Image():
         np.savetxt(Image.lut_sinbeta_path, lut_sinbeta, delimiter=",")
 
     def __init__(self, stokes):
+    
+        # pixels
+        self._pixels = None
         
         # stokes vectors
         self._stokes = stokes
@@ -42,10 +46,18 @@ class Image():
         
         
     @classmethod
-    def from_pixels(cls, pixels):
+    def from_pixels(cls, pixels):   
+        """
+        Generate an image object from pixels.
+        """
+        
         angles = np.deg2rad([0, 45, 90, 135])
         stokes = pa.calcStokes(pa.demosaicing(pixels, pa.COLOR_PolarMono), angles)
-        return cls(stokes)
+       
+        img = cls(stokes)
+        img._pixels = pixels
+        
+        return img
 
     
     @property
@@ -85,3 +97,25 @@ class Image():
                 transformed_stokes[x][y][2] = -q * lut_sinbeta[x][y] + u * lut_cosbeta[x][y]
                 
         return Image(transformed_stokes)
+        
+    def show(self):
+        """
+        Generate a figure that displays the AoLP and DoLP of this image object. 
+        Blocks until the figure GUI is resolved.
+        """
+    
+        fig, (img1, img2) = plt.subplots(1, 2, sharey=True, layout="compressed")
+        
+        img1.set_title("AoLP")
+        img2.set_title("DoLP")
+        
+        img1.set_axis_off()
+        img2.set_axis_off()
+    
+        cbar1 = img1.imshow(self.aolp, cmap="jet",     vmin=-np.pi/2, vmax=np.pi/2)
+        cbar2 = img2.imshow(self.dolp, cmap="viridis", vmin=0.0,      vmax=1.0)
+        
+        fig.colorbar(cbar1)
+        fig.colorbar(cbar2)
+        
+        plt.show()
