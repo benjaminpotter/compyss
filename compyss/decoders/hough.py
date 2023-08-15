@@ -5,6 +5,8 @@ import math
 from compyss.image import Image
 
 """
+Find the azimuth angle between the image and the solar meridian.
+
 From my research, this method was first documented by Lu et al. in their paper DOI:10.1364/OE.23.007248.
 See the paper linked above for more information.
 """
