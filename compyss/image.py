@@ -1,9 +1,10 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import polanalyser as pa
-import os
 
+import os
 from math import atan2, cos, sin
+from datetime import datetime
 
 class Image():
     """
@@ -106,6 +107,7 @@ class Image():
     
         fig, (img1, img2) = plt.subplots(1, 2, sharey=True, layout="compressed")
         
+        fig.suptitle(datetime.today().strftime("%m/%d/%y %H:%M"))
         img1.set_title("AoLP")
         img2.set_title("DoLP")
         
