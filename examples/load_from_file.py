@@ -15,9 +15,7 @@ def main():
     cmps = Compass(source=FileSource(filepath="res/N9_0.0751_0.0000_0.0000_4_43.50_6.3_498_0.11.png")) # PSNS dataset
     image = cmps.source.get()
     
-    pos = plt.imshow(image.aolp, cmap="jet")
-    plt.colorbar(pos)
-    plt.show()
+    image.show()
     
 if __name__ == "__main__":
     main()
