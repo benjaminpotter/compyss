@@ -3,7 +3,7 @@ A tool built for analysing skylight polarization patterns. It aims to provide
 heading information from skylight angle of polarization images.
 
 <p align="center">
-	<img src="https://raw.githubusercontent.com/benjaminpotter/compyss/master/res/SkyPattern.png" width="256" height="256">
+	<img src="https://raw.githubusercontent.com/benjaminpotter/compyss/master/res/example.png" width="320" height="240">
 </p>
 
 ### Design philosophy
@@ -30,7 +30,10 @@ here.
 -->
 
 ## Features
-- Read angle to solar meridian from AoLP image
+- Load LI image from camera or file.
+- Generate Stokes vector, AoLP, and DoLP from LI image.
+- Display image information in figure.
+- Read angle to solar meridian from AoLP image.
 
 ### Camera SDK support
 - Lucid Vision Labs, Arena SDK
@@ -44,14 +47,13 @@ from compyss.sources.file import FileSource
 
 # create a new compass object
 cmps = compyss.core.Compass(source=FileSource("path/to/file.png")
+image = cmps.source.get().instrument_to_local()
 
-# use the compass object to extract data from the source
-cmps.read()
+image.show()
 ```
 
 ### Initial setup
-The package is not currently available on pypi. Download the source and install
-as a local package using pip.
+```python -m pip install compyss```
 
 ### Dependencies
 General dependencies are listed in the requirements.txt file and can be installed using ```python -m pip install -r requirements.txt``` or something similar.

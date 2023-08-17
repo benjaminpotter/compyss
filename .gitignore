@@ -5,3 +5,6 @@ __pycache__
 compyss.egg-info
 res/lut
 res/arena/features.txt
+dist
+pyproject.toml
+tokens.txt
