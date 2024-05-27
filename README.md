@@ -2,6 +2,8 @@
 A tool built for analysing skylight polarization patterns. It aims to provide
 heading information from skylight angle of polarization images.
 
+#### This repository has been deprecated in favour of [this project](https://github.com/benjaminpotter/ccompass).
+
 <p align="center">
 	<img src="https://raw.githubusercontent.com/benjaminpotter/compyss/master/res/example.png" width="320" height="240">
 </p>
